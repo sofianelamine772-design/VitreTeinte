@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { nav, site } from "@/lib/site";
-import { Snapchat } from "./Icons";
+import { nav, site, whatsappUrl } from "@/lib/site";
+import { Snapchat, WhatsApp } from "./Icons";
 
 export default function Footer() {
   return (
     <footer className="relative border-t border-white/5 bg-coal">
       <div className="gold-line absolute inset-x-0 top-0" />
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.5fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-12 sm:px-8 sm:py-16 md:grid-cols-[1.5fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-4">
             <Image src="/images/logo.png" alt={site.name} width={64} height={64} className="h-16 w-16 rounded-full" />
@@ -37,15 +37,26 @@ export default function Footer() {
 
         <div>
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-gold-light/80">Suivez-nous</p>
-          <a
-            href={site.snapchatUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-[#FFFC00]/50"
-          >
-            <Snapchat className="h-5 w-5 text-[#FFFC00]" />
-            {site.snapchat}
-          </a>
+          <div className="flex flex-wrap gap-2.5">
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-full border border-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:border-[#25D366]/50"
+            >
+              <WhatsApp className="h-5 w-5 text-[#25D366]" />
+              WhatsApp
+            </a>
+            <a
+              href={site.snapchatUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-full border border-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:border-[#FFFC00]/50"
+            >
+              <Snapchat className="h-5 w-5 text-[#FFFC00]" />
+              {site.snapchat}
+            </a>
+          </div>
           <p className="mt-6 text-sm text-white/50">{site.area}</p>
         </div>
       </div>

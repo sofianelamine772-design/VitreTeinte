@@ -1,10 +1,29 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { site } from "@/lib/site";
+import { site, whatsappUrl } from "@/lib/site";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
-import { Arrow, Check, Clock, Mail, MapPin, Phone, Snapchat } from "./Icons";
+import { Arrow, Check, Clock, Mail, MapPin, Phone, Snapchat, WhatsApp } from "./Icons";
+
+const channels = [
+  {
+    name: "WhatsApp",
+    handle: "Réponse rapide",
+    href: whatsappUrl(),
+    icon: WhatsApp,
+    color: "bg-[#25D366] text-white",
+    hover: "hover:border-[#25D366]/50",
+  },
+  {
+    name: "Snapchat",
+    handle: site.snapchat,
+    href: site.snapchatUrl,
+    icon: Snapchat,
+    color: "bg-[#FFFC00] text-black",
+    hover: "hover:border-[#FFFC00]/50",
+  },
+];
 
 const services = ["Vitres teintées auto", "Film athermique", "Film sécurité", "Bâtiment / vitrine", "Dépose d'ancien film"];
 const tints = ["5 % (Limo)", "20 % (Foncé)", "35 % (Moyen)", "50 % (Léger)", "Je ne sais pas encore"];
@@ -31,11 +50,8 @@ export default function Contact() {
       .filter(Boolean)
       .join("\n");
 
-    if (site.email) {
-      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-        "Demande de devis — vitres teintées",
-      )}&body=${encodeURIComponent(text)}`;
-    }
+    // La demande part directement sur WhatsApp, déjà rédigée
+    window.open(whatsappUrl(text), "_blank", "noopener,noreferrer");
     setMessage(text);
     setCopied(false);
   }
@@ -51,9 +67,8 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden py-24 sm:py-32">
-      <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[30rem] w-[50rem] -translate-x-1/2 rounded-full bg-gold/10 blur-[140px]" />
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+    <section id="contact" className="relative overflow-hidden py-16 sm:py-24 lg:py-28">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
         <SectionHeading
           eyebrow="Contact"
           title="Demandez votre"
@@ -63,23 +78,28 @@ export default function Contact() {
 
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <Reveal className="space-y-5">
-            <a
-              href={site.snapchatUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-5 rounded-3xl border border-[#FFFC00]/30 bg-[#FFFC00]/[0.04] p-6 transition hover:border-[#FFFC00]/60"
-            >
-              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#FFFC00] text-ink">
-                <Snapchat className="h-8 w-8" />
-              </span>
-              <span className="flex-1">
-                <span className="block text-xs uppercase tracking-[0.25em] text-white/50">Le plus rapide</span>
-                <span className="font-display text-xl text-white">{site.snapchat}</span>
-              </span>
-              <Arrow className="h-5 w-5 text-white/40 transition group-hover:translate-x-1 group-hover:text-white" />
-            </a>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              {channels.map((c) => (
+                <a
+                  key={c.name}
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex items-center gap-4 rounded-2xl border border-white/[0.08] bg-coal p-4 transition-colors ${c.hover}`}
+                >
+                  <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${c.color}`}>
+                    <c.icon className="h-6 w-6" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-semibold text-white">{c.name}</span>
+                    <span className="block truncate text-sm text-white/50">{c.handle}</span>
+                  </span>
+                  <Arrow className="h-4 w-4 shrink-0 text-white/30 transition group-hover:translate-x-0.5 group-hover:text-white" />
+                </a>
+              ))}
+            </div>
 
-            <div className="border-gold-gradient space-y-6 rounded-3xl p-7">
+            <div className="border-gold-gradient space-y-6 rounded-2xl p-6 sm:p-7">
               <Info icon={MapPin} label="Zone d'intervention" value={site.area} />
               {site.phone && (
                 <Info icon={Phone} label="Téléphone" value={site.phone} href={`tel:${site.phone.replace(/\s/g, "")}`} />
@@ -103,24 +123,33 @@ export default function Contact() {
           </Reveal>
 
           <Reveal delay={150}>
-            <div className="border-gold-gradient rounded-3xl p-7 sm:p-10">
+            <div className="border-gold-gradient rounded-2xl p-5 sm:p-10">
               {message ? (
                 <div className="flex min-h-[28rem] flex-col items-center justify-center text-center">
                   <span className="bg-gold grid h-16 w-16 place-items-center rounded-full text-ink">
                     <Check className="h-8 w-8" />
                   </span>
-                  <h3 className="mt-6 font-display text-xl uppercase text-white">Demande prête !</h3>
+                  <h3 className="mt-6 text-xl font-semibold text-white">Demande prête</h3>
                   <p className="mt-3 max-w-sm text-white/60">
-                    Copiez votre demande et envoyez-la nous sur Snapchat pour une réponse rapide.
+                    WhatsApp s&apos;est ouvert avec votre message. Il ne s&apos;est pas ouvert ? Utilisez
+                    les boutons ci-dessous.
                   </p>
                   <pre className="mt-6 w-full max-w-md whitespace-pre-wrap rounded-2xl border border-white/10 bg-ink/70 p-4 text-left font-sans text-sm text-white/70">
                     {message}
                   </pre>
-                  <div className="mt-6 flex w-full max-w-md flex-col gap-3 sm:flex-row">
+                  <div className="mt-6 grid w-full max-w-md gap-3 sm:grid-cols-2">
+                    <a
+                      href={whatsappUrl(message)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] py-3.5 font-semibold text-white sm:col-span-2"
+                    >
+                      <WhatsApp className="h-5 w-5" /> Envoyer sur WhatsApp
+                    </a>
                     <button
                       type="button"
                       onClick={copy}
-                      className="flex-1 rounded-full border border-white/15 py-3.5 font-semibold text-white transition hover:border-gold/60"
+                      className="rounded-xl border border-white/15 py-3.5 font-semibold text-white transition hover:border-gold/60"
                     >
                       {copied ? "Copié ✓" : "Copier le message"}
                     </button>
@@ -128,9 +157,9 @@ export default function Contact() {
                       href={site.snapchatUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#FFFC00] py-3.5 font-bold text-ink"
+                      className="flex items-center justify-center gap-2 rounded-xl bg-[#FFFC00] py-3.5 font-semibold text-black"
                     >
-                      <Snapchat className="h-5 w-5" /> Ouvrir Snapchat
+                      <Snapchat className="h-5 w-5" /> Snapchat
                     </a>
                   </div>
                   <button
@@ -171,9 +200,9 @@ export default function Contact() {
                   </Field>
                   <button
                     type="submit"
-                    className="bg-gold group col-span-full mt-2 flex items-center justify-center gap-2 rounded-full py-4 font-bold text-ink shadow-[0_10px_40px_-10px_rgba(212,166,74,0.9)] transition hover:brightness-110"
+                    className="bg-gold group col-span-full mt-2 flex items-center justify-center gap-2 rounded-full py-4 font-bold text-ink transition hover:brightness-110"
                   >
-                    Envoyer ma demande
+                    Envoyer ma demande sur WhatsApp
                     <Arrow className="h-4 w-4 transition group-hover:translate-x-1" />
                   </button>
                 </form>

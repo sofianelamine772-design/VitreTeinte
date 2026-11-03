@@ -90,9 +90,8 @@ export default function Booking() {
   }, []);
 
   return (
-    <section id="reservation" className="relative overflow-hidden bg-coal py-24 sm:py-32">
-      <div className="pointer-events-none absolute -left-40 top-20 h-[30rem] w-[30rem] rounded-full bg-gold/[0.07] blur-[130px]" />
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+    <section id="reservation" className="relative overflow-hidden bg-coal py-16 sm:py-24 lg:py-28">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
         <SectionHeading
           eyebrow="Réservation en ligne"
           title="Réservez votre"
@@ -102,7 +101,7 @@ export default function Booking() {
 
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
           <Reveal className="flex flex-col gap-5">
-            <div className="border-gold-gradient rounded-3xl p-7 sm:p-8">
+            <div className="border-gold-gradient rounded-2xl p-7 sm:p-8">
               <p className="text-xs uppercase tracking-[0.3em] text-gold-light/80">Rendez-vous</p>
               <h3 className="mt-3 font-display text-xl uppercase leading-snug text-white">
                 Pose de vitres teintées
@@ -128,7 +127,7 @@ export default function Booking() {
               </ul>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-ink/50 p-7 text-sm leading-relaxed text-white/55">
+            <div className="rounded-2xl border border-white/10 bg-ink/50 p-7 text-sm leading-relaxed text-white/55">
               <p>
                 Pensez à préciser le <span className="text-white">modèle de votre véhicule</span> et
                 la <span className="text-white">teinte souhaitée</span> lors de la réservation.
@@ -148,7 +147,7 @@ export default function Booking() {
           <Reveal delay={150}>
             <div
               ref={wrapper}
-              className="border-gold-gradient relative overflow-hidden rounded-3xl shadow-[0_40px_100px_-40px_rgba(212,166,74,0.35)]"
+              className="border-gold-gradient relative overflow-hidden rounded-2xl"
             >
               {booked && (
                 <div className="flex items-center gap-3 border-b border-gold/30 bg-gold/10 px-6 py-4 text-sm text-gold-light">

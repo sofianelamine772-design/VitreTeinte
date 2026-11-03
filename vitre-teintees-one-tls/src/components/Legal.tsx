@@ -11,8 +11,8 @@ const rules = [
 
 export default function Legal() {
   return (
-    <section id="reglementation" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl px-5 sm:px-8">
+    <section id="reglementation" className="relative py-16 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-5xl px-4 sm:px-8">
         <SectionHeading
           eyebrow="Réglementation"
           title="100 % conforme"
@@ -21,11 +21,11 @@ export default function Legal() {
         />
 
         <Reveal>
-          <div className="border-gold-gradient overflow-hidden rounded-3xl">
+          <div className="border-gold-gradient overflow-hidden rounded-2xl">
             {rules.map((r, i) => (
               <div
                 key={r.zone}
-                className={`flex items-center gap-5 px-6 py-5 sm:px-10 ${i > 0 ? "border-t border-white/5" : ""}`}
+                className={`flex items-center gap-4 px-4 py-4 sm:gap-5 sm:px-10 sm:py-5 ${i > 0 ? "border-t border-white/5" : ""}`}
               >
                 <span
                   className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${
@@ -35,7 +35,7 @@ export default function Legal() {
                   {r.ok ? <Check className="h-5 w-5" /> : <Close className="h-5 w-5" />}
                 </span>
                 <div className="flex flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                  <span className="font-display text-sm uppercase tracking-wider text-white">{r.zone}</span>
+                  <span className="text-base font-semibold text-white sm:text-lg">{r.zone}</span>
                   <span className="text-sm text-white/55">{r.detail}</span>
                 </div>
               </div>

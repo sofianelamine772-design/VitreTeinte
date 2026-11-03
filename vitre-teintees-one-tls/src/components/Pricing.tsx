@@ -27,8 +27,8 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="tarifs" className="relative bg-coal py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+    <section id="tarifs" className="relative bg-coal py-16 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8">
         <SectionHeading
           eyebrow="Tarifs"
           title="Des prix"
@@ -40,9 +40,9 @@ export default function Pricing() {
           {plans.map((p, i) => (
             <Reveal key={p.name} delay={i * 120} className="h-full">
               <div
-                className={`relative flex h-full flex-col rounded-3xl p-8 sm:p-10 ${
+                className={`relative flex h-full flex-col rounded-2xl p-8 sm:p-10 ${
                   p.featured
-                    ? "border-gold-gradient shadow-[0_30px_80px_-30px_rgba(212,166,74,0.45)] lg:-translate-y-4"
+                    ? "border border-gold/50 bg-coal lg:-translate-y-4"
                     : "border border-white/10 bg-ink/50"
                 }`}
               >
@@ -51,7 +51,7 @@ export default function Pricing() {
                     Le plus demandé
                   </span>
                 )}
-                <h3 className="font-display text-base uppercase tracking-wider text-white">{p.name}</h3>
+                <h3 className="text-lg font-semibold text-white">{p.name}</h3>
                 <p className="mt-1 text-sm text-white/45">{p.example}</p>
                 <p className="mt-8 flex items-baseline gap-2">
                   <span className="text-sm text-white/50">dès</span>

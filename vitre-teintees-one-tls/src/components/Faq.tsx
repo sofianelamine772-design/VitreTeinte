@@ -25,14 +25,14 @@ const faqs = [
   },
   {
     q: "Faut-il prendre rendez-vous ?",
-    a: "Oui, la pose se fait uniquement sur rendez-vous. Réservez directement votre créneau en ligne grâce au calendrier, ou écrivez-nous sur Snapchat pour un devis.",
+    a: "Oui, la pose se fait uniquement sur rendez-vous. Réservez directement votre créneau en ligne grâce au calendrier, ou écrivez-nous sur WhatsApp ou Snapchat pour un devis.",
   },
 ];
 
 export default function Faq() {
   return (
-    <section id="faq" className="relative bg-coal py-24 sm:py-32">
-      <div className="mx-auto max-w-3xl px-5 sm:px-8">
+    <section id="faq" className="relative bg-coal py-16 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-3xl px-4 sm:px-8">
         <SectionHeading eyebrow="FAQ" title="Questions" highlight="fréquentes" />
         <div className="space-y-3">
           {faqs.map((f, i) => (

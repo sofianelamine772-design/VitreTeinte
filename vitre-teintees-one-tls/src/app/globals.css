@@ -79,10 +79,8 @@ body {
 }
 
 .border-gold-gradient {
-  border: 1px solid transparent;
-  background:
-    linear-gradient(var(--color-coal), var(--color-coal)) padding-box,
-    linear-gradient(140deg, rgba(243, 212, 136, 0.7), rgba(255, 255, 255, 0.06) 40%, rgba(212, 166, 74, 0.5)) border-box;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-coal);
 }
 
 .gold-line {

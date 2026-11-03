@@ -22,9 +22,8 @@ export default function TintSimulator() {
   const active = presets.reduce((a, b) => (Math.abs(b.vlt - vlt) < Math.abs(a.vlt - vlt) ? b : a));
 
   return (
-    <section id="simulateur" className="relative overflow-hidden bg-coal py-24 sm:py-32">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[36rem] w-[60rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/[0.06] blur-[120px]" />
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+    <section id="simulateur" className="relative overflow-hidden bg-coal py-16 sm:py-24 lg:py-28">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
         <SectionHeading
           eyebrow="Simulateur"
           title="Choisissez"
@@ -80,8 +79,8 @@ export default function TintSimulator() {
 
             <div className="mt-8 grid grid-cols-3 gap-3">
               <Metric label="UV bloqués" value="99%" pct={99} />
-              <Metric label="Chaleur rejetée" value={`${heatRejection(vlt)}%`} pct={heatRejection(vlt)} />
-              <Metric label="Anti-éblouissement" value={`${glareReduction(vlt)}%`} pct={glareReduction(vlt)} />
+              <Metric label="Chaleur" value={`${heatRejection(vlt)}%`} pct={heatRejection(vlt)} />
+              <Metric label="Éblouissement" value={`${glareReduction(vlt)}%`} pct={glareReduction(vlt)} />
             </div>
 
             <p className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm leading-relaxed text-white/55">

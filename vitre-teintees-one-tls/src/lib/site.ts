@@ -8,6 +8,8 @@ export const site = {
   snapchat: "AUTO-TLS31",
   snapchatUrl: "https://www.snapchat.com/add/auto-tls31",
   calendlyUrl: "https://calendly.com/onetls/75min",
+  // TODO: remplacer par le vrai numéro WhatsApp, format international sans « + » ni espaces
+  whatsapp: "33600000000",
   // TODO: renseigner les vraies coordonnées
   phone: "",
   email: "",
@@ -18,6 +20,9 @@ export const site = {
     { days: "Dimanche", time: "Sur rendez-vous" },
   ],
 };
+
+export const whatsappUrl = (text = "Bonjour, je souhaite un devis pour la teinte de mes vitres.") =>
+  `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 
 export const nav = [
   { href: "#services", label: "Services" },
