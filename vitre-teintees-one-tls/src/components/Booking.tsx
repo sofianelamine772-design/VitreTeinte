@@ -48,7 +48,7 @@ const perks = [
   "Modification ou annulation en 1 clic",
 ];
 
-export default function Booking() {
+export default function Booking({ hideHeading = false }: { hideHeading?: boolean }) {
   const wrapper = useRef<HTMLDivElement>(null);
   const widget = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<"idle" | "loading" | "ready" | "error">("idle");
@@ -73,7 +73,7 @@ export default function Booking() {
           })
           .catch(() => setState("error"));
       },
-      { rootMargin: "600px 0px" },
+      { rootMargin: "300px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -92,12 +92,12 @@ export default function Booking() {
   return (
     <section id="reservation" className="relative overflow-hidden bg-coal py-16 sm:py-24 lg:py-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
-        <SectionHeading
+        {!hideHeading && (<SectionHeading
           eyebrow="Réservation en ligne"
           title="Réservez votre"
           highlight="créneau"
           text="Choisissez directement le jour et l'heure de votre rendez-vous. Confirmation instantanée, sans appel ni attente."
-        />
+        />)}
 
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
           <Reveal className="flex flex-col gap-5">

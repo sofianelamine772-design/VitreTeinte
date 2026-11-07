@@ -29,11 +29,11 @@ const faqs = [
   },
 ];
 
-export default function Faq() {
+export default function Faq({ hideHeading = false }: { hideHeading?: boolean }) {
   return (
     <section id="faq" className="relative bg-coal py-16 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-8">
-        <SectionHeading eyebrow="FAQ" title="Questions" highlight="fréquentes" />
+        {!hideHeading && (<SectionHeading eyebrow="FAQ" title="Questions" highlight="fréquentes" />)}
         <div className="space-y-3">
           {faqs.map((f, i) => (
             <Reveal key={f.q} delay={i * 60}>

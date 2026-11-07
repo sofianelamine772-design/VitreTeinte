@@ -35,16 +35,16 @@ const services = [
   },
 ];
 
-export default function Services() {
+export default function Services({ hideHeading = false }: { hideHeading?: boolean }) {
   return (
     <section id="services" className="relative py-16 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
-        <SectionHeading
+        {!hideHeading && (<SectionHeading
           eyebrow="Nos prestations"
           title="Un savoir-faire"
           highlight="sur mesure"
           text="Des films de qualité professionnelle, posés à la main par un spécialiste. Chaque véhicule est traité avec le même soin."
-        />
+        />)}
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (

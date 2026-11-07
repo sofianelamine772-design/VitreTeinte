@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site, whatsappUrl } from "@/lib/site";
 import { Arrow, Snapchat, WhatsApp } from "./Icons";
@@ -8,28 +10,14 @@ import { Arrow, Snapchat, WhatsApp } from "./Icons";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("");
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Surligne le lien de la section visible
-  useEffect(() => {
-    const sections = nav
-      .map((l) => document.querySelector<HTMLElement>(l.href))
-      .filter((s): s is HTMLElement => !!s);
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => e.isIntersecting && setActive(`#${e.target.id}`));
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
   }, []);
 
   // Menu mobile : bloque le scroll, ferme avec Échap ou en passant en desktop
@@ -52,14 +40,14 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-          scrolled || open ? "border-b border-white/[0.06] bg-ink/90 backdrop-blur-lg" : "border-b border-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-200 ${
+          scrolled || open ? "border-b border-white/[0.06] bg-ink/95" : "border-b border-transparent"
         }`}
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8 lg:h-20">
-          <a href="#top" onClick={close} className="flex items-center gap-3" aria-label="Accueil">
+          <Link href="/" onClick={close} className="flex items-center gap-3" aria-label="Accueil">
             <Image
-              src="/images/logo.png"
+              src="/images/logo-sm.avif"
               alt=""
               width={44}
               height={44}
@@ -71,19 +59,19 @@ export default function Navbar() {
               <span className="text-gold">Teintées</span>
               <span className="block text-[9px] tracking-[0.4em] text-white/45 sm:text-[10px]">One TLS</span>
             </span>
-          </a>
+          </Link>
 
           <ul className="hidden items-center gap-7 lg:flex">
             {nav.map((l) => (
               <li key={l.href}>
-                <a
+                <Link
                   href={l.href}
                   className={`text-[13px] font-medium transition-colors ${
-                    active === l.href ? "text-gold-light" : "text-white/60 hover:text-white"
+                    isActive(l.href) ? "text-gold-light" : "text-white/60 hover:text-white"
                   }`}
                 >
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -98,12 +86,12 @@ export default function Navbar() {
             >
               <WhatsApp className="h-5 w-5" />
             </a>
-            <a
-              href="#reservation"
+            <Link
+              href="/reservation"
               className="bg-gold hidden rounded-full px-5 py-2.5 text-sm font-bold text-ink transition hover:brightness-110 sm:inline-block"
             >
               Réserver
-            </a>
+            </Link>
             <button
               type="button"
               aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
@@ -152,16 +140,16 @@ export default function Navbar() {
               }`}
               style={{ transitionDelay: open ? `${80 + i * 40}ms` : "0ms" }}
             >
-              <a
+              <Link
                 href={l.href}
                 onClick={close}
                 className={`flex items-center justify-between py-4 text-2xl font-semibold tracking-tight ${
-                  active === l.href ? "text-gold-light" : "text-white"
+                  isActive(l.href) ? "text-gold-light" : "text-white"
                 }`}
               >
                 {l.label}
                 <Arrow className="h-5 w-5 text-white/25" />
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -172,9 +160,9 @@ export default function Navbar() {
           }`}
           style={{ transitionDelay: open ? "300ms" : "0ms" }}
         >
-          <a href="#reservation" onClick={close} className="bg-gold block rounded-xl py-4 text-center font-bold text-ink">
+          <Link href="/reservation" onClick={close} className="bg-gold block rounded-xl py-4 text-center font-bold text-ink">
             Réserver un créneau
-          </a>
+          </Link>
           <div className="grid grid-cols-2 gap-3">
             <a
               href={whatsappUrl()}

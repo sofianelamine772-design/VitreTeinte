@@ -25,11 +25,10 @@ export const whatsappUrl = (text = "Bonjour, je souhaite un devis pour la teinte
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 
 export const nav = [
-  { href: "#services", label: "Services" },
-  { href: "#simulateur", label: "Simulateur" },
-  { href: "#tarifs", label: "Tarifs" },
-  { href: "#reservation", label: "Réservation" },
-  { href: "#reglementation", label: "Législation" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Contact" },
+  { href: "/services", label: "Services" },
+  { href: "/simulateur", label: "Simulateur" },
+  { href: "/tarifs", label: "Tarifs" },
+  { href: "/reglementation", label: "Législation" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
 ];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
@@ -12,29 +12,40 @@ const presets = [
   { vlt: 70, name: "Clair", desc: "Quasi invisible, centré sur l'anti-UV et la chaleur." },
 ];
 
+const frontOptions = [
+  { vlt: 75, name: "Origine", note: "Vitre d'usine, sans film" },
+  { vlt: 70, name: "70 %", note: "Film clair homologué" },
+  { vlt: 45, name: "45 %", note: "Teinte marquée" },
+];
+const LEGAL_FRONT_MIN = 70;
+const toOpacity = (v: number) => 0.96 - (v / 100) * 1.0;
+
 // Valeurs indicatives pour un film céramique
 const heatRejection = (vlt: number) => Math.round(68 - vlt * 0.45);
 const glareReduction = (vlt: number) => Math.round(100 - vlt * 1.05);
 
-export default function TintSimulator() {
+export default function TintSimulator({ hideHeading = false }: { hideHeading?: boolean }) {
   const [vlt, setVlt] = useState(20);
-  const opacity = 0.96 - (vlt / 100) * 1.0;
+  const [front, setFront] = useState(70);
+  const opacity = toOpacity(vlt);
+  const frontOpacity = toOpacity(front);
+  const frontLegal = front >= LEGAL_FRONT_MIN;
   const active = presets.reduce((a, b) => (Math.abs(b.vlt - vlt) < Math.abs(a.vlt - vlt) ? b : a));
 
   return (
     <section id="simulateur" className="relative overflow-hidden bg-coal py-16 sm:py-24 lg:py-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
-        <SectionHeading
+        {!hideHeading && (<SectionHeading
           eyebrow="Simulateur"
           title="Choisissez"
           highlight="votre teinte"
           text="Déplacez le curseur pour visualiser le rendu. Le pourcentage indique la lumière qui traverse la vitre : plus il est bas, plus la teinte est foncée."
-        />
+        />)}
 
         <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
           <Reveal>
             <div className="border-gold-gradient rounded-[2rem] p-4 sm:p-8">
-              <CarPreview opacity={opacity} />
+              <CarPreview opacity={opacity} frontOpacity={frontOpacity} frontVlt={front} />
             </div>
           </Reveal>
 
@@ -77,6 +88,40 @@ export default function TintSimulator() {
               ))}
             </div>
 
+            <div className="mt-8">
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Vitres avant · conducteur & passager</p>
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {frontOptions.map((o) => (
+                  <button
+                    key={o.vlt}
+                    type="button"
+                    onClick={() => setFront(o.vlt)}
+                    aria-pressed={front === o.vlt}
+                    className={`rounded-xl border px-2 py-3 text-center transition ${
+                      front === o.vlt
+                        ? "border-gold bg-gold/15 text-gold-light"
+                        : "border-white/10 text-white/60 hover:border-white/30 hover:text-white"
+                    }`}
+                  >
+                    <span className="block text-sm font-semibold">{o.name}</span>
+                    <span className="mt-0.5 block text-[10px] leading-tight text-white/40">{o.note}</span>
+                  </button>
+                ))}
+              </div>
+              <p
+                role="status"
+                className={`mt-3 rounded-xl border px-4 py-3 text-sm leading-relaxed ${
+                  frontLegal
+                    ? "border-gold/30 bg-gold/[0.06] text-gold-light"
+                    : "border-red-400/30 bg-red-500/[0.07] text-red-200"
+                }`}
+              >
+                {frontLegal
+                  ? "Conforme : au moins 70 % de transmission lumineuse à l'avant."
+                  : "Attention : en dessous de 70 % à l'avant, la teinte n'est pas conforme au Code de la route sur la voie publique (amende de 135 € et retrait de 3 points)."}
+              </p>
+            </div>
+
             <div className="mt-8 grid grid-cols-3 gap-3">
               <Metric label="UV bloqués" value="99%" pct={99} />
               <Metric label="Chaleur" value={`${heatRejection(vlt)}%`} pct={heatRejection(vlt)} />
@@ -84,9 +129,9 @@ export default function TintSimulator() {
             </div>
 
             <p className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm leading-relaxed text-white/55">
-              <span className="font-semibold text-gold-light">Rappel légal :</span> la teinte est
-              appliquée sur les vitres arrière et la lunette. Le pare-brise et les vitres avant
-              doivent laisser passer au moins 70 % de la lumière.
+              <span className="font-semibold text-gold-light">À savoir :</span> la teinte est libre
+              sur les vitres arrière et la lunette. Pare-brise et vitres avant : 70 % de lumière
+              minimum exigés par le Code de la route.
             </p>
           </Reveal>
         </div>
@@ -101,13 +146,13 @@ function Metric({ label, value, pct }: { label: string; value: string; pct: numb
       <p className="font-display text-lg text-white sm:text-xl">{value}</p>
       <p className="mt-1 text-[10px] uppercase tracking-wider text-white/45 sm:text-[11px]">{label}</p>
       <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
-        <div className="bg-gold h-full rounded-full transition-all duration-500" style={{ width: `${pct}%` }} />
+        <div className="bg-gold h-full rounded-full transition-[width] duration-300" style={{ width: `${pct}%` }} />
       </div>
     </div>
   );
 }
 
-function CarPreview({ opacity }: { opacity: number }) {
+const CarPreview = memo(function CarPreview({ opacity, frontOpacity, frontVlt }: { opacity: number; frontOpacity: number; frontVlt: number }) {
   const frontWindow = "M196,112 L252,76 C266,69 284,66 300,66 L312,66 L312,112 Z";
   const rearWindow = "M322,66 L372,66 C402,68 428,84 452,110 L322,112 Z";
 
@@ -165,8 +210,8 @@ function CarPreview({ opacity }: { opacity: number }) {
         <rect x="268" y="104" width="28" height="20" rx="8" fill="#2a2a2e" />
         <circle cx="372" cy="96" r="11" fill="#2a2a2e" />
         <rect x="358" y="104" width="28" height="20" rx="8" fill="#2a2a2e" />
-        {/* Avant : vitre d'origine (légère, conforme) */}
-        <path d={frontWindow} fill="#0a0a0b" opacity="0.18" />
+        {/* Avant : conducteur & passager */}
+        <path d={frontWindow} fill="#050506" opacity={frontOpacity} style={{ transition: "opacity .4s ease" }} />
         {/* Arrière : film choisi */}
         <path d={rearWindow} fill="#050506" opacity={opacity} style={{ transition: "opacity .4s ease" }} />
         <path d="M200,60 L250,120" stroke="#fff" strokeOpacity="0.18" strokeWidth="14" />
@@ -205,11 +250,11 @@ function CarPreview({ opacity }: { opacity: number }) {
       ))}
 
       <text x="254" y="54" textAnchor="middle" fill="#fff" fillOpacity="0.45" fontSize="11" letterSpacing="2">
-        AVANT · ORIGINE
+        AVANT · {frontVlt === 75 ? "ORIGINE" : `${frontVlt} %`}
       </text>
       <text x="388" y="54" textAnchor="middle" fill="#f3d488" fontSize="11" letterSpacing="2">
         ARRIÈRE · TEINTÉ
       </text>
     </svg>
   );
-}
+});

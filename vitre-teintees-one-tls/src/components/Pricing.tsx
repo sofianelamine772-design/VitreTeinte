@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 import { Check } from "./Icons";
@@ -25,16 +26,16 @@ const plans = [
   },
 ];
 
-export default function Pricing() {
+export default function Pricing({ hideHeading = false }: { hideHeading?: boolean }) {
   return (
     <section id="tarifs" className="relative bg-coal py-16 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
-        <SectionHeading
+        {!hideHeading && (<SectionHeading
           eyebrow="Tarifs"
           title="Des prix"
           highlight="transparents"
           text="Tarifs indicatifs pour une pose complète de l'arrière du véhicule. Le prix exact dépend du modèle : demandez votre devis gratuit."
-        />
+        />)}
 
         <div className="grid items-stretch gap-6 lg:grid-cols-3">
           {plans.map((p, i) => (
@@ -67,8 +68,8 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#reservation"
+                <Link
+                  href="/reservation"
                   className={`mt-10 block rounded-full py-3.5 text-center font-bold transition ${
                     p.featured
                       ? "bg-gold text-ink hover:brightness-110"
@@ -76,7 +77,7 @@ export default function Pricing() {
                   }`}
                 >
                   Réserver
-                </a>
+                </Link>
               </div>
             </Reveal>
           ))}

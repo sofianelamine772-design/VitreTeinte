@@ -9,16 +9,16 @@ const rules = [
   { zone: "Pare-brise", ok: false, detail: "Transmission lumineuse ≥ 70 % obligatoire" },
 ];
 
-export default function Legal() {
+export default function Legal({ hideHeading = false }: { hideHeading?: boolean }) {
   return (
     <section id="reglementation" className="relative py-16 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-5xl px-4 sm:px-8">
-        <SectionHeading
+        {!hideHeading && (<SectionHeading
           eyebrow="Réglementation"
           title="100 % conforme"
           highlight="à la loi"
           text="Depuis le 1er janvier 2017, le Code de la route encadre la teinte des vitres. Nous posons uniquement des films homologués, dans le respect de la réglementation."
-        />
+        />)}
 
         <Reveal>
           <div className="border-gold-gradient overflow-hidden rounded-2xl">

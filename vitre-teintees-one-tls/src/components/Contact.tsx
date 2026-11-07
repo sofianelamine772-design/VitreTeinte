@@ -31,7 +31,7 @@ const tints = ["5 % (Limo)", "20 % (Foncé)", "35 % (Moyen)", "50 % (Léger)", "
 const inputCls =
   "w-full rounded-xl border border-white/10 bg-ink/70 px-4 py-3.5 text-white placeholder:text-white/30 outline-none transition focus:border-gold/60 focus:ring-2 focus:ring-gold/20";
 
-export default function Contact() {
+export default function Contact({ hideHeading = false }: { hideHeading?: boolean }) {
   const [message, setMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -69,12 +69,12 @@ export default function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden py-16 sm:py-24 lg:py-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
-        <SectionHeading
+        {!hideHeading && (<SectionHeading
           eyebrow="Contact"
           title="Demandez votre"
           highlight="devis gratuit"
           text="Indiquez-nous votre véhicule et la teinte souhaitée, on vous répond rapidement avec un prix et un créneau."
-        />
+        />)}
 
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <Reveal className="space-y-5">

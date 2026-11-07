@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { site, whatsappUrl } from "@/lib/site";
 import { Arrow, WhatsApp } from "./Icons";
@@ -12,7 +13,7 @@ const stats = [
 export default function Hero() {
   return (
     <section id="top" className="relative isolate overflow-hidden pt-24 sm:pt-28 lg:pt-32">
-      <div className="pointer-events-none absolute -top-48 left-1/2 -z-10 h-[38rem] w-[38rem] -translate-x-1/2 rounded-full bg-gold/[0.07] blur-[120px]" />
+      <div className="pointer-events-none absolute -top-48 left-1/2 -z-10 h-[38rem] w-[38rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,166,74,0.10)_0%,transparent_65%)]" />
 
       <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 pb-16 sm:px-8 sm:pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:pb-28">
         <div className="text-center lg:text-left">
@@ -31,13 +32,13 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-            <a
-              href="#reservation"
+            <Link
+              href="/reservation"
               className="bg-gold group inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 font-bold text-ink transition hover:brightness-110"
             >
               Réserver un créneau
               <Arrow className="h-4 w-4 transition group-hover:translate-x-1" />
-            </a>
+            </Link>
             <a
               href={whatsappUrl()}
               target="_blank"
@@ -52,7 +53,7 @@ export default function Hero() {
 
         <div className="relative order-first mx-auto w-56 sm:w-72 lg:order-none lg:w-full lg:max-w-[30rem]">
           <Image
-            src="/images/logo.png"
+            src="/images/logo.avif"
             alt={`Logo ${site.name}`}
             width={912}
             height={894}

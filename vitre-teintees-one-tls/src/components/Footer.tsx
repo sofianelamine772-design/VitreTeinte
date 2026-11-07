@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { nav, site, whatsappUrl } from "@/lib/site";
 import { Snapchat, WhatsApp } from "./Icons";
@@ -9,7 +10,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-12 sm:px-8 sm:py-16 md:grid-cols-[1.5fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-4">
-            <Image src="/images/logo.png" alt={site.name} width={64} height={64} className="h-16 w-16 rounded-full" />
+            <Image src="/images/logo-sm.avif" alt={site.name} width={64} height={64} className="h-16 w-16 rounded-full" />
             <div className="font-display uppercase leading-tight tracking-wider">
               <span className="text-chrome">Vitre </span>
               <span className="text-gold">Teintées</span>
@@ -27,9 +28,9 @@ export default function Footer() {
           <ul className="space-y-3 text-sm">
             {nav.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="text-white/60 transition hover:text-white">
+                <Link href={l.href} className="text-white/60 transition hover:text-white">
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
