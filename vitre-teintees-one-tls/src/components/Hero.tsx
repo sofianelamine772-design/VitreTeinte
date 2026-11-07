@@ -21,7 +21,7 @@ export default function Hero() {
             Teinte de vitres · {site.city}
           </p>
 
-          <h1 className="font-display text-[1.9rem] uppercase leading-[1.15] tracking-wide sm:text-5xl lg:text-[3.5rem]">
+          <h1 className="font-display text-[1.6rem] uppercase leading-[1.15] sm:text-4xl lg:text-[3rem]">
             <span className="text-chrome block">Vos vitres,</span>
             <span className="text-gold block">votre style.</span>
           </h1>

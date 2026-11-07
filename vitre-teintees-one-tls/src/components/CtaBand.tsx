@@ -9,7 +9,7 @@ export default function CtaBand() {
       <Reveal className="mx-auto max-w-5xl px-4 sm:px-8">
         <div className="relative overflow-hidden rounded-[2rem] border border-gold/25 bg-coal px-6 py-12 text-center sm:px-14 sm:py-16">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,166,74,0.14),transparent_60%)]" />
-          <h2 className="relative font-display text-2xl uppercase leading-snug tracking-wide sm:text-4xl">
+          <h2 className="relative font-display text-xl uppercase leading-snug sm:text-3xl">
             <span className="text-chrome">Prêt à</span> <span className="text-gold">teinter vos vitres ?</span>
           </h2>
           <p className="relative mx-auto mt-4 max-w-xl text-white/55">

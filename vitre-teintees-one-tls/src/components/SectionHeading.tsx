@@ -11,7 +11,7 @@ export default function SectionHeading({ eyebrow, title, highlight, text }: Prop
   return (
     <Reveal className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
       <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-gold">{eyebrow}</p>
-      <h2 className="font-display text-[1.4rem] uppercase leading-snug tracking-wide sm:text-4xl">
+      <h2 className="font-display text-[1.2rem] uppercase leading-snug sm:text-3xl">
         <span className="text-chrome">{title}</span>
         {highlight && (
           <>

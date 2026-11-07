@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CarScene from "./CarScene";
+import CarScene, { paints } from "./CarScene";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
@@ -29,6 +29,8 @@ export default function TintSimulator({ hideHeading = false }: { hideHeading?: b
   const [vlt, setVlt] = useState(20);
   const [front, setFront] = useState(70);
   const [compare, setCompare] = useState(false);
+  const [paintId, setPaintId] = useState(paints[0].id);
+  const paint = paints.find((p) => p.id === paintId) ?? paints[0];
   const opacity = toOpacity(vlt);
   const frontOpacity = toOpacity(front);
   const frontLegal = front >= LEGAL_FRONT_MIN;
@@ -47,7 +49,7 @@ export default function TintSimulator({ hideHeading = false }: { hideHeading?: b
         <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
           <Reveal>
             <div className="border-gold-gradient rounded-[2rem] p-4 sm:p-8">
-              <CarScene rearOpacity={compare ? 0 : opacity} frontOpacity={compare ? 0 : frontOpacity} />
+              <CarScene paint={paint} rearOpacity={compare ? 0 : opacity} frontOpacity={compare ? 0 : frontOpacity} />
               <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex flex-wrap gap-2 text-xs font-medium">
                   <span className="rounded-full border border-white/10 bg-ink/60 px-3 py-1.5 text-white/70">
@@ -65,6 +67,26 @@ export default function TintSimulator({ hideHeading = false }: { hideHeading?: b
                 >
                   {compare ? "Voir avec le film" : "Voir sans film"}
                 </button>
+              </div>
+              <div className="mt-4 flex items-center gap-3" role="radiogroup" aria-label="Couleur de la carrosserie">
+                <span className="text-[11px] uppercase tracking-[0.25em] text-white/45">Golf 8 R · {paint.name}</span>
+                <div className="ml-auto flex gap-2">
+                  {paints.map((p) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={p.id === paintId}
+                      aria-label={p.name}
+                      title={p.name}
+                      onClick={() => setPaintId(p.id)}
+                      className={`h-7 w-7 rounded-full border-2 transition ${
+                        p.id === paintId ? "scale-110 border-gold" : "border-white/20 hover:border-white/50"
+                      }`}
+                      style={{ background: `linear-gradient(135deg, ${p.light}, ${p.mid} 60%, ${p.dark})` }}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>

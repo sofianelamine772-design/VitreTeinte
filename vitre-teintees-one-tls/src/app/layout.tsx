@@ -1,19 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Michroma, Manrope } from "next/font/google";
+import { Syncopate, Barlow } from "next/font/google";
 import "./globals.css";
 import { site, whatsappUrl } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Snapchat, WhatsApp } from "@/components/Icons";
 
-const michroma = Michroma({
-  variable: "--font-michroma",
-  weight: "400",
+const display = Syncopate({
+  variable: "--font-display-face",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const sans = Barlow({
+  variable: "--font-sans-face",
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
 
@@ -50,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${michroma.variable} ${manrope.variable} antialiased`}>
+      <body className={`${display.variable} ${sans.variable} antialiased`}>
         <Navbar />
         <main>{children}</main>
         <Footer />

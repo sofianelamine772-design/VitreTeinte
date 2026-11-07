@@ -90,7 +90,7 @@ export default function Booking({ hideHeading = false }: { hideHeading?: boolean
   }, []);
 
   return (
-    <section id="reservation" className="relative overflow-hidden bg-coal py-16 sm:py-24 lg:py-28">
+    <section id="reservation" className="relative overflow-hidden bg-coal pb-16 pt-4 sm:pb-24 lg:pb-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
         {!hideHeading && (<SectionHeading
           eyebrow="Réservation en ligne"

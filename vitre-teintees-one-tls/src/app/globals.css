@@ -11,8 +11,8 @@
   --color-silver: #d9dce1;
   --color-silver-dark: #7d8189;
 
-  --font-display: var(--font-michroma), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
 
   --animate-shine: shine 6s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
@@ -43,6 +43,7 @@ body {
   background: var(--color-ink);
   color: #e9e9eb;
   font-family: var(--font-sans);
+  font-size: 17px;
 }
 
 ::selection {
@@ -156,4 +157,11 @@ input[type="range"].tint-range::-moz-range-thumb {
     opacity: 0;
     transform: translate3d(0, 10px, 0);
   }
+}
+
+/* Typo façon RS : large, tranchante, en capitales */
+.font-display {
+  font-weight: 700;
+  letter-spacing: 0.01em !important;
+  line-height: 1.2;
 }

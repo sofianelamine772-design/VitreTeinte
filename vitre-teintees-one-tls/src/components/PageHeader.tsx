@@ -8,7 +8,7 @@ export default function PageHeader({ eyebrow, title, highlight, text }: Props) {
       <div className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[30rem] w-[44rem] max-w-full -translate-x-1/2 bg-[radial-gradient(ellipse,rgba(212,166,74,0.12)_0%,transparent_65%)]" />
       <Reveal className="mx-auto max-w-3xl px-4 text-center sm:px-8">
         <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-gold">{eyebrow}</p>
-        <h1 className="font-display text-[1.7rem] uppercase leading-tight tracking-wide sm:text-5xl">
+        <h1 className="font-display text-[1.5rem] uppercase leading-tight sm:text-4xl">
           <span className="text-chrome">{title}</span>
           {highlight && (
             <>

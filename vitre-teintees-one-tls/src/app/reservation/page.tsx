@@ -8,6 +8,7 @@ export default function Page() {
   return (
     <>
       <PageHeader eyebrow="Réservation" title="Réservez" highlight="votre créneau" text="Choisissez un horaire, confirmation immédiate." />
+      <div className="bg-coal pt-12 sm:pt-16" />
       <Booking hideHeading />
     </>
   );
